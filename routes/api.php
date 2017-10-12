@@ -38,6 +38,12 @@ Route::post('/product',[
 ]);
 
 
+Route::post('/categories',[
+    'uses'=>'ProductsController@storeCategories',
+    'middleware'=>'auth.jwt'
+]);
+
+
 
 Route::post('/imageload',[
     'uses'=>'ProductsController@storeIMG',

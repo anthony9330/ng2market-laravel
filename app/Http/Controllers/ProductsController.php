@@ -137,4 +137,17 @@ class ProductsController extends Controller
         $categories=Category::all();
         return response()->json(['categories'=>$categories],201);
     }
+
+    public function storeCategories(Request $request){
+        $this->validate($request,[
+            'category_name'=>'required'
+
+        ]);
+
+        $category= new Category();
+        $category->category_name=$request->category_name;
+        $category->additionalFields=$request->additionalFields;
+        $category->save();
+        return response()->json(['categories'=>"successfully created Category"],201);
+    }
 }
