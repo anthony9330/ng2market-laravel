@@ -138,7 +138,7 @@ class ProductsController extends Controller
         return response()->json(['categories'=>$categories],201);
     }
 
-    public function storeCategories(Request $request){
+    public function storeCategory(Request $request){
         $this->validate($request,[
             'category_name'=>'required'
 
@@ -148,6 +148,38 @@ class ProductsController extends Controller
         $category->category_name=$request->category_name;
         $category->additionalFields=$request->additionalFields;
         $category->save();
-        return response()->json(['categories'=>"successfully created Category"],201);
+        return response()->json(['category'=>"successfully created Category"],201);
+    }
+
+
+
+    public function  editCategory(Request $request,$id){
+        $category=Category::where('id',$id)->first();
+        $this->validate($request,[
+            'category_name'=>'required'
+        ]);
+        if(!$category){
+            return response()->json(['message'=>"cannot find category"],404);
+        }
+        else {
+
+            $category->category_name = $request->category_name;
+            $category->additionalFields = $request->additionalFields;
+            $category->update();
+            return response()->json(['category' => $category], 201);
+
+        }
+    }
+
+    public function deleteCategory($id){
+        $category=Category::where('id',$id)->first();
+        if($category){
+            $category->delete();
+               return response()->json(['category'=>$category],201);
+        }else {
+            return response()->json(['error'=>'no such category'],201);
+        }
+
+
     }
 }

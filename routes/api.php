@@ -38,10 +38,22 @@ Route::post('/product',[
 ]);
 
 
-Route::post('/categories',[
-    'uses'=>'ProductsController@storeCategories',
+Route::post('/category',[
+    'uses'=>'ProductsController@storeCategory',
     'middleware'=>'auth.jwt'
 ]);
+
+Route::post('/category/{id}',[
+    'uses'=>'ProductsController@editCategory',
+    'middleware'=>'auth.jwt'
+]);
+
+
+Route::post('/delete_cat/{id}',[
+    'uses'=>'ProductsController@deleteCategory',
+    'middleware'=>'auth.jwt'
+]);
+
 
 
 
