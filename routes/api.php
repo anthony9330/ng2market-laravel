@@ -32,45 +32,43 @@ Route::delete('/quote/{id}',[
 ]);
 
 
+
+
+
+
 Route::post('/product',[
     'uses'=>'ProductsController@createProduct',
     'middleware'=>'auth.jwt'
 ]);
+Route::get('/products',[
+    'uses'=>'ProductsController@getAllProducts',
 
+]);
+Route::post('/product/{id}',[
+    'uses'=>'ProductsController@updateProduct',
+    'middleware'=>'auth.jwt'
+]);
 
+Route::get('/categories',[
+    'uses'=>'ProductsController@getAllCategories',
+]);
 Route::post('/category',[
     'uses'=>'ProductsController@storeCategory',
     'middleware'=>'auth.jwt'
 ]);
-
 Route::post('/category/{id}',[
     'uses'=>'ProductsController@editCategory',
     'middleware'=>'auth.jwt'
 ]);
-
-
 Route::post('/delete_cat/{id}',[
     'uses'=>'ProductsController@deleteCategory',
     'middleware'=>'auth.jwt'
 ]);
 
-
-
-
 Route::post('/imageload',[
     'uses'=>'ProductsController@storeIMG',
 //    'middleware'=>'auth.jwt'
-
-
 ]);
-
-
-
-
-Route::get('/categories',[
-    'uses'=>'ProductsController@getAllCategories',
-]);
-
 
 
 

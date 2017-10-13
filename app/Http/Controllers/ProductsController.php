@@ -53,6 +53,41 @@ class ProductsController extends Controller
         }
 
     }
+
+
+    public function getAllProducts(){
+        $products=Product::all();
+
+        foreach($products as $product){
+
+            $product->category_info=$product->category;
+
+        }
+
+
+       return response()->json(['products'=> $products],201);
+    }
+
+    public function getProduct($id){
+        
+    }
+
+    public function updateProduct(Request $request,$id){
+        $product= Product::where('id',$id)->first();
+        if($product){
+            $product->title=$request->title;
+            $product->categoryID=$request->categoryID;
+            $product->description=$request->description;
+            $product->location=$request->location;
+            $product->approved=$request->approved;
+            $product->update();
+            return response()->json(['product'=>$product],201);
+        }
+        else {
+            return response()->json(['message'=>'no such product'],201);
+        }
+    }
+
     public function storeIMG(Request $request){
         If($request->hasFile('image')){
 
