@@ -60,7 +60,7 @@ class ProductsController extends Controller
 
         foreach($products as $product){
 
-            $product->category_info=$product->category;
+            $product->category=$product->category;
 
         }
 
@@ -68,24 +68,40 @@ class ProductsController extends Controller
        return response()->json(['products'=> $products],201);
     }
 
-    public function getProduct($id){
-        
-    }
+
 
     public function updateProduct(Request $request,$id){
         $product= Product::where('id',$id)->first();
+
         if($product){
             $product->title=$request->title;
             $product->categoryID=$request->categoryID;
             $product->description=$request->description;
             $product->location=$request->location;
             $product->approved=$request->approved;
+            $product->price=$request->price;
+            $product->additionalFields=$request->additionalFields;
             $product->update();
             return response()->json(['product'=>$product],201);
         }
         else {
             return response()->json(['message'=>'no such product'],201);
         }
+    }
+
+    public function deleteProduct($id){
+        $product=Product::where('id',$id)->first();
+
+        if($product){
+
+            $product->delete();
+            return response()->json(['product'=>$product],201);
+
+        }
+        else {
+            return response()->json(['product'=>'no such product'],201);
+        }
+
     }
 
     public function storeIMG(Request $request){
@@ -183,7 +199,7 @@ class ProductsController extends Controller
         $category->category_name=$request->category_name;
         $category->additionalFields=$request->additionalFields;
         $category->save();
-        return response()->json(['category'=>"successfully created Category"],201);
+        return response()->json(['category'=>$category],201);
     }
 
 

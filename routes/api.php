@@ -49,6 +49,13 @@ Route::post('/product/{id}',[
     'middleware'=>'auth.jwt'
 ]);
 
+Route::post('/del_product/{id}',[
+    'uses'=>'ProductsController@deleteProduct',
+    'middleware'=>'auth.jwt'
+]);
+
+
+
 Route::get('/categories',[
     'uses'=>'ProductsController@getAllCategories',
 ]);
